@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link src="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="js/funciones.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <div class="container">
+        <script>
+            ShowDatos();
+        </script>
         <form action="modificar" method="post">
+            <h1>Actualizar</h1>
             <div class="mb-3">
                 <label for="" class="form-label">Codigo:</label>
-                <input type="text" name="codigo_editorial" class="form-control">
+                <input type="text" name="codigo_editorial" class="form-control" id="codigo_editorial" readonly>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Nombre:</label>
-                <input type="text" name="nombre_editorial"  class="form-control">
+                <input type="text" name="nombre_editorial"  class="form-control" id="nombre_editorial">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Contacto:</label>
-                <input type="text" name="contacto" class="form-control">
+                <input type="text" name="contacto" class="form-control" id="contacto">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Telefono:</label>
-                <input type="text" name="telefono"  class="form-control">
+                <input type="text" name="telefono"  class="form-control" id="telefono">
             </div>
-            <input type="submit" name="actualizar" value="Actualizar" class="btn btn-primary">
+            <input type="submit " onclick="updateData()" id="update-editorial" class="btn" name="submit" value="Guardar">
         </form>
     </div>
 </body>

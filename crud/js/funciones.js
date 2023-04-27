@@ -31,8 +31,8 @@ async function ObtenerDatos () {
             <td>${element['contacto']}</td>
             <td>${element['telefono']}</td>
             <td>
-                <a href='#' onclick="ShowDatos('${element['codigo_editorial']}')">Modificar</a>
-                <a href='#' onclick="EliminarDatos('${element['codigo_editorial']}')">Eliminar</a>
+            <a href='modificar.html?id=${element['codigo_editorial']}' class="waves-effect waves-light btn">Modificar</a>
+            <a href='#' onclick="EliminarDatos('${element['codigo_editorial']}')" class="waves-effect waves-light btn">Eliminar</a>
             </td>
             `
             $tabla.appendChild($tr)
@@ -66,7 +66,7 @@ async function ObtenerDatos () {
 
         console.log(editorial)
         if(response.ok){
-            console.log(response)
+            window.location.href="index.html"
         }
         else{
             console.log(response)
@@ -93,34 +93,69 @@ async function ObtenerDatos () {
         }
     }
 
-    async function ShowDatos(id){
-        window.location.href ="modificar.html"
-
+    async function ShowDatos(){
+        let param = new URLSearchParams(window.location.search);
+        let id = param.get("id");
+    
         let url = `http://localhost:8000/api/editoriales/${id}`
-
         const response = await fetch(url, {
-            method:"GET",
+            method: "GET",
         })
         const jsonData = await response.json()
         setTimeout(() => {
-            if(window.location.href= "http://localhost/crud/modificar.html"){
-              let miEditorial ={
+            
+            let miEditorial = {
                 "codigo_editorial": jsonData['codigo_editorial'],
                 "nombre_editorial": jsonData['nombre_editorial'],
-                "contacto": jsonData['codigo_editorial'],
-                "telefono": jsonData['codigo_editorial'],
+                "contacto": jsonData['contacto'],
+                "telefono": jsonData['telefono'],
             }
-            console.log(miEditorial)  
+            console.log(miEditorial)
+            
+            
+                document.getElementById("codigo_editorial").value = miEditorial.codigo_editorial
+        
+                document.getElementById("nombre_editorial").value = miEditorial.nombre_editorial
+        
+                document.getElementById("contacto").value = miEditorial.contacto
+        
+                document.getElementById("telefono").value = miEditorial.telefono
+        }, 0);
 
-            document.getElementById("codigo_editorial").value=miEditorial.codigo_editorial
-            document.getElementById("nombre_editorial").value=miEditorial.nombre_editorial
-            document.getElementById("contacto").value=miEditorial.contacto
-            document.getElementById("telefono").value=miEditorial.telefono
-            }
-            else{
-                alert("No es la pagina correcta")
-            }
-        }, 1000);
+}
+
+async function updateData() {
+    let btnUpdateEditorial = document.getElementById("update-editorial")
+
+    btnUpdateEditorial.addEventListener("click", (e)=> {
+        e.preventDefault()
+    })
+
+    let param = new URLSearchParams(window.location.search);
+    let id = param.get("id");
+
+
+    let url = `http://localhost:8000/api/editoriales/${id}`
+    let editorial = {
+        "codigo_editorial": document.getElementById("codigo_editorial").value,
+        "nombre_editorial": document.getElementById("nombre_editorial").value,
+        "contacto": document.getElementById("contacto").value,
+        "telefono": document.getElementById("telefono").value,
     }
+
+    console.log(editorial)
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(editorial),
+    })
+    if (response.ok) {
+        window.location.href = "index.html"
+    } else {
+        alert(response.error)
+    }
+}
 
    
