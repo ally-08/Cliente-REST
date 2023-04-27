@@ -11,27 +11,36 @@
 </head>
 
 <body>
-    <h1>Agrega una editorial</h1>
+    <!-- <h1>Agrega una editorial</h1> -->
     <br>
     <div class="container">
-    <form action="" method="post">
-        <div class="mb-3">
-            <label for="" class="form-label">Codigo:</label>
-            <input type="text" name="codigo_editorial" class="form-control">
+
+    <form action="" method="POST">
+        <h1>Ingresando Nueva Editorial</h1>
+        <div>
+            <label for="codigo_editorial">Codigo:</label>
+            <input type="text" name="codigo_editorial" id="codigo_editorial" placeholder="EDI###" required maxlength="6">
         </div>
-        <div class="mb-3">
-            <label for="" class="form-label">Nombre:</label>
-            <input type="text" name="nombre_editorial" class="form-control">
+    
+        <div>
+            <label for="nombre_editorial">Nombre:</label>
+            <input type="text" name="nombre_editorial" id="nombre_editorial" placeholder="Ej. Mi Editorial" required>
         </div>
-        <div class="mb-3">
-            <label for="" class="form-label">Contacto:</label>
-            <input type="text" name="contacto" class="form-control">
+    
+        <div>
+            <label for="contacto">Contacto:</label>
+            <input type="text" name="contacto" id="contacto" placeholder="Ej. José Juan" required>
         </div>
-        <div class="mb-3">
-            <label for="" class="form-label">Telefono:</label>
-            <input type="text" name="telefono" class="form-control">
+    
+        <div>
+            <label for="telefono">Telefono:</label>
+            <input type="text" id="telefono"  name="telefono" placeholder="####-####" required>    
         </div>
-        <input type="submit" name="guardar" value="Guardar" class="btn btn-primary">
+    
+    
+        <div>
+            <input type="submit " onclick="insertarDatos()" id="add-editorial" class="btn" name="submit" value="Guardar">
+        </div>
     </form>
     </div>
 </body>

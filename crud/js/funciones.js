@@ -40,11 +40,11 @@ async function ObtenerDatos () {
 
     }
 
-    async function InsertarDatos() {
+    async function insertarDatos() {
         let btnAddEditorial = document.getElementById("add-editorial")
 
-        btnAddEditorial.addEventListener("click", (e) => {
-            e.preventDefault
+        btnAddEditorial.addEventListener("click", function () {
+            e.preventDefault();
         })
 
         let editorial={
@@ -54,7 +54,8 @@ async function ObtenerDatos () {
             "telefono": document.getElementById("telefono").value,
         }
 
-        const url = '//localhost:8000/api/editoriales'
+                     
+        const url = 'http://localhost:8000/api/editoriales'
         const response = await fetch (url, {
             method: "POST",
             headers: {
@@ -65,10 +66,10 @@ async function ObtenerDatos () {
 
         console.log(editorial)
         if(response.ok){
-            window.location.href ="index.html"
+            console.log(response)
         }
         else{
-            alert(response.error)
+            console.log(response)
         }
     }
 
