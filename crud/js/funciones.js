@@ -6,12 +6,12 @@ async function ObtenerDatos () {
         const jsonData = await response.json()
         let editoriales = [];
         jsonData.forEach(element => {
-            let miEditorial = new Editorial(
-                element['codigo_editorial'],
-                element['nombre_editorial'],
-                element['contacto'],
-                element['telefono'],
-            )
+            let miEditorial = {
+                "codigo_editorial": element['codigo_editorial'],
+                "nombre_editorial": element['nombre_editorial'],
+                "contacto": element['contacto'],
+                "telefono": element['telefono'],
+            }
 
             editoriales.push(miEditorial)
         });
@@ -20,7 +20,7 @@ async function ObtenerDatos () {
     }
 
  async function Datos() {
-        let editoriales = await Editorial.ObtenerDatos();
+        let editoriales = await ObtenerDatos();
         let $tabla = document.getElementById("tabla");
         
         editoriales.forEach(element => {
@@ -31,8 +31,8 @@ async function ObtenerDatos () {
             <td>${element['contacto']}</td>
             <td>${element['telefono']}</td>
             <td>
-                <a ref='#' onclick="ShowDatos('${element['codigo_editorial']}')">Modificar</a>
-                <a ref='#' onclick="EliminarDatos('${element['codigo_editorial']}')">Eliminar</a>
+                <a href='#' onclick="ShowDatos('${element['codigo_editorial']}')">Modificar</a>
+                <a href='#' onclick="EliminarDatos('${element['codigo_editorial']}')">Eliminar</a>
             </td>
             `
             $tabla.appendChild($tr)
@@ -72,19 +72,19 @@ async function ObtenerDatos () {
         }
     }
 
-     async function EliminarDatos(){
+     async function EliminarDatos(id){
         let Eliminar = confirm (`Desea eliminar la editorial ${id}?`)
 
         if(Eliminar){
             let url=`http://localhost:8000/api/editoriales/${id}`
 
             const response = await fetch (url,{
-                method: "DELETE",
+                method:"DELETE",
             })
 
             if(response.ok){
                 console.log(response)
-                window.location.href ="index.html"
+                window.location.replace("index.html")
             }
             else{
                 console.error(response.error)
